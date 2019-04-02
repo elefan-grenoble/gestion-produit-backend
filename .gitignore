@@ -1,0 +1,43 @@
+###> CUSTOM ###
+# Build data
+/build/
+
+# Composer PHAR
+/composer.phar
+
+# Backup entities generated with doctrine:generate:entities command
+**/Entity/*~
+
+# Netbeans
+/nbproject/
+
+# IDE Jetbrains
+.idea/
+
+# Mac, Windows, KDE
+*.DS_Store
+*.swp
+*.Thumbs.db
+*.directory
+
+# Managed by NPM
+/node_modules/
+###< CUSTOM ###
+
+###> symfony/framework-bundle ###
+/.env.local
+/.env.local.php
+/.env.*.local
+/public/bundles/
+/var/
+/vendor/
+###< symfony/framework-bundle ###
+
+###> symfony/phpunit-bridge ###
+.phpunit
+/phpunit.xml
+###< symfony/phpunit-bridge ###
+
+###> symfony/web-server-bundle ###
+/.web-server-pid
+###< symfony/web-server-bundle ###
