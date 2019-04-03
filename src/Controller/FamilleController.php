@@ -10,7 +10,7 @@ use Swagger\Annotations as SWG;
 use Nelmio\ApiDocBundle\Annotation\Model;
 
 /**
- * @Rest\Route("/api/familles")
+ * @Rest\Route("/familles")
  */
 class FamilleController extends AbstractFOSRestController
 {

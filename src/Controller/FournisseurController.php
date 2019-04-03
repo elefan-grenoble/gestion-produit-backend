@@ -10,7 +10,7 @@ use Nelmio\ApiDocBundle\Annotation\Model;
 use Swagger\Annotations as SWG;
 
 /**
- * @Rest\Route("/api/fournisseurs")
+ * @Rest\Route("/fournisseurs")
  */
 class FournisseurController extends AbstractFOSRestController
 {
