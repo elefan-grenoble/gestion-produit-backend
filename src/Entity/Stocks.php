@@ -36,7 +36,7 @@ class Stocks
     /**
      * @var Article
      * @ORM\Id
-     * @ORM\ManyToOne(targetEntity="App\Entity\Article")
+     * @ORM\OneToOne(targetEntity="App\Entity\Article", inversedBy="stocks")
      * @ORM\JoinColumn(name="code", referencedColumnName="code")
      */
     private $article;

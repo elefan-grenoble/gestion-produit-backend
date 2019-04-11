@@ -187,6 +187,14 @@ class Article
     private $ancPrixVenteHt;
 
     /**
+     * Stock
+     * @var Stocks
+     * @ORM\OneToOne(targetEntity="App\Entity\Stocks", mappedBy="article")
+     * @Serializer\MaxDepth(depth=1)
+     */
+    private $stocks;
+
+    /**
      * Get code.
      *
      * @return int
@@ -204,16 +212,6 @@ class Article
     public function getDesignation()
     {
         return $this->designation;
-    }
-
-    /**
-     * Get codeFournisseur.
-     *
-     * @return string
-     */
-    public function getCodeFournisseur()
-    {
-        return $this->codeFournisseur;
     }
 
     /**
@@ -401,5 +399,13 @@ class Article
     public function getFournisseur(): Fournisseur
     {
         return $this->fournisseur;
+    }
+
+    /**
+     * @return Stocks
+     */
+    public function getStocks(): Stocks
+    {
+        return $this->stocks;
     }
 }
