@@ -191,6 +191,7 @@ class Article
      * @var Stocks
      * @ORM\OneToOne(targetEntity="App\Entity\Stocks", mappedBy="article")
      * @Serializer\MaxDepth(depth=1)
+     * @Serializer\Groups({"privilegied"})
      */
     private $stocks;
 

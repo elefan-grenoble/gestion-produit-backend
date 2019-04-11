@@ -3,6 +3,7 @@
 namespace App\Controller;
 
 use App\Entity\Article;
+use FOS\RestBundle\Context\Context;
 use FOS\RestBundle\Controller\AbstractFOSRestController;
 use FOS\RestBundle\Controller\Annotations as Rest;
 use Nelmio\ApiDocBundle\Annotation\Model;
@@ -32,7 +33,7 @@ class ArticleController extends AbstractFOSRestController
     {
         $em = $this->getDoctrine();
         $articles = $em->getRepository(Article::class)->findAll();
-        return $articles;
+        return $this->view($articles)->setContext($this->getContext());
     }
 
     /**
@@ -49,6 +50,16 @@ class ArticleController extends AbstractFOSRestController
      */
     public function getArticle(Article $article)
     {
-        return $article;
+        return $this->view($article)->setContext($this->getContext());
+    }
+
+    private function getContext()
+    {
+        $context = new Context();
+        $context->setGroups(['Default']);
+        if ($this->isGranted(['ROLE_USER'])) {
+            $context->addGroup('privilegied');
+        }
+        return $context;
     }
 }
