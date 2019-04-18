@@ -13,6 +13,7 @@
 
 # IDE Jetbrains
 .idea/
+*.iml
 
 # Mac, Windows, KDE
 *.DS_Store
