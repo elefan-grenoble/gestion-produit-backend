@@ -12,15 +12,6 @@ use Doctrine\ORM\Mapping as ORM;
  */
 class Rayon
 {
-
-    /**
-     * Code
-     * @var int
-     *
-     * @ORM\Column(name="code", type="integer", nullable=false)
-     */
-    private $code;
-
     /**
      * Libelle
      * @var string
@@ -36,14 +27,6 @@ class Rayon
      * @ORM\JoinColumn(name="code", referencedColumnName="code")
      */
     private $article;
-
-    /**
-     * @return int
-     */
-    public function getCode(): int
-    {
-        return $this->code;
-    }
 
     /**
      * @return string

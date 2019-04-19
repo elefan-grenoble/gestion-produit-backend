@@ -12,15 +12,6 @@ use Doctrine\ORM\Mapping as ORM;
  */
 class Emplacement
 {
-
-    /**
-     * Code
-     * @var string
-     *
-     * @ORM\Column(name="code", type="string", nullable=false)
-     */
-    private $code;
-
     /**
      * Libelle
      * @var string
@@ -36,14 +27,6 @@ class Emplacement
      * @ORM\JoinColumn(name="code", referencedColumnName="code")
      */
     private $article;
-
-    /**
-     * @return string
-     */
-    public function getCode(): string
-    {
-        return $this->code;
-    }
 
     /**
      * @return string
