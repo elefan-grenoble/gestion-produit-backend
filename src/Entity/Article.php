@@ -50,6 +50,24 @@ class Article
     private $fournisseur;
 
     /**
+     * Emplacement
+     * @var Emplacement
+     * @ORM\ManyToOne(targetEntity="App\Entity\Emplacement")
+     * @ORM\JoinColumn(name="code_emplacement", referencedColumnName="code")
+     * @Serializer\MaxDepth(depth=1)
+     */
+    private $emplacement;
+
+    /**
+     * Rayon
+     * @var Rayon
+     * @ORM\ManyToOne(targetEntity="App\Entity\Rayon")
+     * @ORM\JoinColumn(name="code_rayon", referencedColumnName="code")
+     * @Serializer\MaxDepth(depth=1)
+     */
+    private $rayon;
+
+    /**
      * Référence du fournisseur / à supprimer du schéma ?!
      * @var string|null
      *
@@ -400,6 +418,22 @@ class Article
     public function getFournisseur(): Fournisseur
     {
         return $this->fournisseur;
+    }
+
+    /**
+     * @return Emplacement
+     */
+    public function getEmplacement(): Emplacement
+    {
+        return $this->emplacement;
+    }
+
+    /**
+     * @return Rayon
+     */
+    public function getRayon(): Rayon
+    {
+        return $this->rayon;
     }
 
     /**
