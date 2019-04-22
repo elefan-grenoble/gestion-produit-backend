@@ -26,8 +26,14 @@ class UserController extends AbstractFOSRestController
     {
         $user = $this->getUser();
 
+        $ip = $this->container->get('request_stack')->getCurrentRequest()->getClientIp();
+        $ips = '127.0.0.1,78.209.62.101,193.33.56.47';
+        $ips = explode(',',$ips);
+        $locationOk =  (isset($ip) and in_array($ip,$ips));
+
         $response = [
-            'logged' => $user !== null,
+            'logged' => $user !== null || $locationOk,
+            'ip' => $ip,
             'user' => null,
             'oauth_url' => $this->generateUrl('hwi_oauth_service_redirect', ['service' => 'custom'])
         ];
