@@ -27,7 +27,8 @@ class UserController extends AbstractFOSRestController
         $user = $this->getUser();
 
         $response = [
-            'logged' => $user !== null,
+            'logged' => $this->isGranted('ROLE_USER'),
+            'vip_ip' => $this->isGranted('ROLE_VIP_IP'),
             'user' => null,
             'oauth_url' => $this->generateUrl('hwi_oauth_service_redirect', ['service' => 'custom'])
         ];
