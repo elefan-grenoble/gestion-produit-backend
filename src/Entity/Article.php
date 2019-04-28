@@ -34,7 +34,7 @@ class Article
     /**
      * Famille
      * @var Famille
-     * @ORM\ManyToOne(targetEntity="App\Entity\Famille")
+     * @ORM\ManyToOne(targetEntity="App\Entity\Famille", inversedBy="articles")
      * @ORM\JoinColumn(name="famille_id", referencedColumnName="id")
      * @Serializer\MaxDepth(depth=1)
      */
@@ -43,7 +43,7 @@ class Article
     /**
      * Fournisseur
      * @var Fournisseur
-     * @ORM\ManyToOne(targetEntity="App\Entity\Fournisseur")
+     * @ORM\ManyToOne(targetEntity="App\Entity\Fournisseur", inversedBy="articles")
      * @ORM\JoinColumn(name="code_fournisseur", referencedColumnName="code")
      * @Serializer\MaxDepth(depth=1)
      */
