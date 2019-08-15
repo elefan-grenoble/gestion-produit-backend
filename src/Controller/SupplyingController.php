@@ -11,7 +11,8 @@ use Nelmio\ApiDocBundle\Annotation\Model;
 use phpDocumentor\Reflection\Types\Integer;
 use Swagger\Annotations as SWG;
 use Symfony\Component\HttpFoundation\Response;
-
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter;
+use Symfony\Component\HttpFoundation\Request;
 /**
  * @Rest\Route("/supplying")
  */
@@ -35,12 +36,14 @@ class SupplyingController extends AbstractFOSRestController
     public function getSupplying()
     {
         $em = $this->getDoctrine();
-        $supplyings = $em->getRepository(Supplying::class)->findAll();
+        $supplyings = $em->getRepository(Supplying::class)->getOngoing();
         return $this->view($supplyings)->setContext($this->getContext());
     }
 
     /**
-     * @Rest\Post("/{id}/quantity/{quantity}")
+     * @Rest\Post("")
+     * @Rest\QueryParam(name="articleCode")
+     * @Rest\QueryParam(name="quantity")
      * @Rest\View(statusCode = 201)
      *
      * @SWG\Response(
@@ -54,20 +57,57 @@ class SupplyingController extends AbstractFOSRestController
      *
      * @SWG\Tag(name="supplying")
      */
-    public function createSupplying(Article $article, int $quantity)
+    public function createSupplying($articleCode, $quantity)
     {
+        $em = $this->getDoctrine()->getEntityManager();
+        $article = $em->getRepository(Article::class)->findOneByCode($articleCode);
+
         $supplying = new Supplying();
         $supplying->setArticle($article);
         $supplying->setCreationDate(new \DateTime());
         $supplying->setQuantity($quantity);
+        $supplying->setOutOfStock(false);
 
-        $em = $this->getDoctrine()->getEntityManager();
         $em->persist($supplying);
         $em->flush();
 
         return $this->view(
             $supplying,
             Response::HTTP_CREATED
+        );
+    }
+
+    /**
+     * @Rest\Put("/{id}")
+     * @Rest\View(statusCode = 204)
+     *
+     * @ParamConverter("updates", converter="fos_rest.request_body")
+     *
+     * @SWG\Response(
+     *     response=204,
+     *     description="Supplying updated",
+     *     @SWG\Schema(
+     *         type="array",
+     *         @SWG\Items(ref=@Model(type=Supplying::class))
+     *     )
+     * )
+     *
+     * @SWG\Tag(name="supplying")
+     */
+    public function updateSupplying(int $id, Supplying $updates)
+    {
+        $em = $this->getDoctrine()->getEntityManager();
+        $supplying = $em->getRepository(Supplying::class)->findOneById($id);
+
+        $supplying->setQuantity($updates->getQuantity());
+        $supplying->setOutOfStock($updates->getOutOfStock());
+        $supplying->setSupplyDate($updates->getSupplyDate());
+
+        $em->flush();
+
+        return $this->view(
+            null,
+            Response::HTTP_NO_CONTENT
         );
     }
 

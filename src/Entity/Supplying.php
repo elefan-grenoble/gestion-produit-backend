@@ -10,7 +10,7 @@ use phpDocumentor\Reflection\Types\Boolean;
  * Supplying
  *
  * @ORM\Table(name="SUPPLYING")
- * @ORM\Entity(readOnly=false)
+ * @ORM\Entity(repositoryClass="App\Repository\SupplyingRepository")
  */
 class Supplying
 {
@@ -28,7 +28,7 @@ class Supplying
      * Article
      * @var Article
      * @ORM\ManyToOne(targetEntity="App\Entity\Article")
-     * @ORM\JoinColumn(name="article_code", referencedColumnName="code")
+     * @ORM\JoinColumn(name="article_code", referencedColumnName="code", nullable=false)
      * @Serializer\MaxDepth(depth=2)
      */
     private $article;
@@ -45,7 +45,7 @@ class Supplying
      * Date de création
      * @var \DateTime|null
      *
-     * @ORM\Column(name="creation_date", type="date", nullable=false)
+     * @ORM\Column(name="creation_date", type="datetime", nullable=false)
      */
     private $creationDate;
 
@@ -53,15 +53,15 @@ class Supplying
      * Date de réapprovisionnement
      * @var \DateTime|null
      *
-     * @ORM\Column(name="supply_date", type="date", nullable=true)
+     * @ORM\Column(name="supply_date", type="datetime", nullable=true)
      */
     private $supplyDate;
 
     /**
      * En rupture de stock (non trouvé)
      *
-     * @var Boolean
-     * @ORM\Column(name="out_of_stock", type="boolean", nullable=true)
+     * @var boolean
+     * @ORM\Column(name="out_of_stock", type="boolean", nullable=false)
      */
     private $outOfStock;
 
@@ -140,7 +140,7 @@ class Supplying
     /**
      * @return Boolean
      */
-    public function getOutOfStock(): Boolean
+    public function getOutOfStock(): bool
     {
         return $this->outOfStock;
     }
@@ -148,7 +148,7 @@ class Supplying
     /**
      * @param Boolean $outOfStock
      */
-    public function setOutOfStock(Boolean $outOfStock): void
+    public function setOutOfStock(bool $outOfStock): void
     {
         $this->outOfStock = $outOfStock;
     }

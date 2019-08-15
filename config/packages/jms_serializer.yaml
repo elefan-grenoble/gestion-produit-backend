@@ -5,6 +5,10 @@ jms_serializer:
     default_context:
         serialization:
             enable_max_depth_checks: true
+    handlers:
+        datetime:
+            default_format: "Y-m-d H:i:s"
+            default_timezone: "UTC"
 #    metadata:
 #        auto_detection: false
 #        directories:
