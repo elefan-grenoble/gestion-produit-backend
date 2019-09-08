@@ -2,6 +2,7 @@
 
 namespace App\Entity;
 
+use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use JMS\Serializer\Annotation as Serializer;
@@ -58,6 +59,11 @@ class Famille
      */
     private $articles;
 
+    public function __construct()
+    {
+        $this->articles = new ArrayCollection();
+    }
+
     /**
      * Get nom.
      *
@@ -112,5 +118,56 @@ class Famille
     public function getId(): int
     {
         return $this->id;
+    }
+
+    public function setCode(int $code): self
+    {
+        $this->code = $code;
+
+        return $this;
+    }
+
+    public function setCodeSFamille(int $codeSFamille): self
+    {
+        $this->codeSFamille = $codeSFamille;
+
+        return $this;
+    }
+
+    public function setCodeSsFamille(int $codeSsFamille): self
+    {
+        $this->codeSsFamille = $codeSsFamille;
+
+        return $this;
+    }
+
+    public function setNom(string $nom): self
+    {
+        $this->nom = $nom;
+
+        return $this;
+    }
+
+    public function addArticle(Article $article): self
+    {
+        if (!$this->articles->contains($article)) {
+            $this->articles[] = $article;
+            $article->setFamille($this);
+        }
+
+        return $this;
+    }
+
+    public function removeArticle(Article $article): self
+    {
+        if ($this->articles->contains($article)) {
+            $this->articles->removeElement($article);
+            // set the owning side to null (unless already changed)
+            if ($article->getFamille() === $this) {
+                $article->setFamille(null);
+            }
+        }
+
+        return $this;
     }
 }

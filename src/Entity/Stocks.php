@@ -78,4 +78,32 @@ class Stocks
     {
         return $this->article;
     }
+
+    public function setQteStocks(int $qteStocks): self
+    {
+        $this->qteStocks = $qteStocks;
+
+        return $this;
+    }
+
+    public function setQteCommande(int $qteCommande): self
+    {
+        $this->qteCommande = $qteCommande;
+
+        return $this;
+    }
+
+    public function setDate(\DateTimeInterface $date): self
+    {
+        $this->date = $date;
+
+        return $this;
+    }
+
+    public function setArticle(?Article $article): self
+    {
+        $this->article = $article;
+
+        return $this;
+    }
 }

@@ -114,4 +114,39 @@ class Vente
     {
         return $this->article;
     }
+
+    public function setDesignationArticle(string $designationArticle): self
+    {
+        $this->designationArticle = $designationArticle;
+
+        return $this;
+    }
+
+    public function setQuantite($quantite): self
+    {
+        $this->quantite = $quantite;
+
+        return $this;
+    }
+
+    public function setCaHt($caHt): self
+    {
+        $this->caHt = $caHt;
+
+        return $this;
+    }
+
+    public function setCaTtc($caTtc): self
+    {
+        $this->caTtc = $caTtc;
+
+        return $this;
+    }
+
+    public function setArticle(?Article $article): self
+    {
+        $this->article = $article;
+
+        return $this;
+    }
 }

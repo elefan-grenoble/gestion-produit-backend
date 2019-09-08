@@ -2,6 +2,7 @@
 
 namespace App\Entity;
 
+use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use JMS\Serializer\Annotation as Serializer;
@@ -134,6 +135,11 @@ class Fournisseur
      * @Serializer\Exclude()
      */
     private $articles;
+
+    public function __construct()
+    {
+        $this->articles = new ArrayCollection();
+    }
 
     /**
      * Get code.
@@ -302,5 +308,133 @@ class Fournisseur
     public function getArticles(): Collection
     {
         return $this->articles;
+    }
+
+    public function setNom(string $nom): self
+    {
+        $this->nom = $nom;
+
+        return $this;
+    }
+
+    public function setAddresse1(?string $addresse1): self
+    {
+        $this->addresse1 = $addresse1;
+
+        return $this;
+    }
+
+    public function setAddresse2(?string $addresse2): self
+    {
+        $this->addresse2 = $addresse2;
+
+        return $this;
+    }
+
+    public function setVille(?string $ville): self
+    {
+        $this->ville = $ville;
+
+        return $this;
+    }
+
+    public function setCodePostal(?string $codePostal): self
+    {
+        $this->codePostal = $codePostal;
+
+        return $this;
+    }
+
+    public function setMtFranco(?string $mtFranco): self
+    {
+        $this->mtFranco = $mtFranco;
+
+        return $this;
+    }
+
+    public function setTvaIntercommunautaire(?string $tvaIntercommunautaire): self
+    {
+        $this->tvaIntercommunautaire = $tvaIntercommunautaire;
+
+        return $this;
+    }
+
+    public function setDelai(?string $delai): self
+    {
+        $this->delai = $delai;
+
+        return $this;
+    }
+
+    public function setRemise(?string $remise): self
+    {
+        $this->remise = $remise;
+
+        return $this;
+    }
+
+    public function setNomContact(?string $nomContact): self
+    {
+        $this->nomContact = $nomContact;
+
+        return $this;
+    }
+
+    public function setTelephone(?string $telephone): self
+    {
+        $this->telephone = $telephone;
+
+        return $this;
+    }
+
+    public function setPortable(?string $portable): self
+    {
+        $this->portable = $portable;
+
+        return $this;
+    }
+
+    public function setFax(?string $fax): self
+    {
+        $this->fax = $fax;
+
+        return $this;
+    }
+
+    public function setEmail(?string $email): self
+    {
+        $this->email = $email;
+
+        return $this;
+    }
+
+    public function setSiteInternet(?string $siteInternet): self
+    {
+        $this->siteInternet = $siteInternet;
+
+        return $this;
+    }
+
+    public function addArticle(Article $article): self
+    {
+        if (!$this->articles->contains($article)) {
+            $this->articles[] = $article;
+            $article->setFournisseur($this);
+        }
+
+        return $this;
+    }
+
+    public function removeArticle(Article $article): self
+    {
+        if ($this->articles->contains($article)) {
+            $this->articles->removeElement($article);
+            // set the owning side to null (unless already changed)
+            if ($article->getFournisseur() === $this) {
+                $article->setFournisseur(null);
+            }
+        }
+
+        return $this;
     }
 }
