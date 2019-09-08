@@ -4,6 +4,7 @@ namespace App\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
 use JMS\Serializer\Annotation as Serializer;
+use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * MissingBarcode
@@ -26,6 +27,7 @@ class MissingBarcode
      * @var \DateTime
      *
      * @ORM\Column(type="datetime", nullable=false)
+     * @Assert\DateTime
      */
     private $date;
 
@@ -34,12 +36,14 @@ class MissingBarcode
      * @ORM\ManyToOne(targetEntity="App\Entity\Article", inversedBy="missingBarcodes")
      * @ORM\JoinColumn(referencedColumnName="code", nullable=false)
      * @Serializer\MaxDepth(depth=1)
+     * @Assert\NotNull
      */
     private $article;
 
     /**
      * @var int
      * @ORM\Column(type="bigint", nullable=false)
+     * @Assert\NotNull
      */
     private $barcode;
 
