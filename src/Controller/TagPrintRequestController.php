@@ -32,7 +32,7 @@ class TagPrintRequestController extends AbstractFOSRestController
      *     )
      * )
      *
-     * @SWG\Tag(name="missing_barcode")
+     * @SWG\Tag(name="tag_print_request")
      */
     public function getTagPrintRequests()
     {
@@ -50,7 +50,7 @@ class TagPrintRequestController extends AbstractFOSRestController
      *     @Model(type=TagPrintRequest::class)
      * )
      *
-     * @SWG\Tag(name="missing_barcode")
+     * @SWG\Tag(name="tag_print_request")
      * @param Request $request
      * @return View|FormInterface
      */
@@ -83,7 +83,7 @@ class TagPrintRequestController extends AbstractFOSRestController
      *     description="Delete a tag print request"
      * )
      *
-     * @SWG\Tag(name="missing_barcode")
+     * @SWG\Tag(name="tag_print_request")
      * @param TagPrintRequest $tagPrintRequest
      * @return \FOS\RestBundle\View\View
      */
