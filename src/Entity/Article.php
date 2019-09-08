@@ -217,16 +217,26 @@ class Article
 
     /**
      * Stock
-     * @var Stocks
+     * @var MissingBarcode
      * @ORM\OneToMany(targetEntity="App\Entity\MissingBarcode", mappedBy="article")
      * @Serializer\MaxDepth(depth=1)
      * @Serializer\Groups({"privilegied"})
      */
     private $missingBarcodes;
 
+    /**
+     * Stock
+     * @var TagPrintRequest
+     * @ORM\OneToMany(targetEntity="App\Entity\TagPrintRequest", mappedBy="article")
+     * @Serializer\MaxDepth(depth=1)
+     * @Serializer\Groups({"privilegied"})
+     */
+    private $tagPrintRequests;
+
     public function __construct()
     {
         $this->missingBarcodes = new ArrayCollection();
+        $this->tagPrintRequests = new ArrayCollection();
     }
 
     /**
@@ -485,6 +495,37 @@ class Article
             // set the owning side to null (unless already changed)
             if ($missingBarcode->getArticle() === $this) {
                 $missingBarcode->setArticle(null);
+            }
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|TagPrintRequest[]
+     */
+    public function getTagPrintRequests(): Collection
+    {
+        return $this->tagPrintRequests;
+    }
+
+    public function addTagPrintRequest(TagPrintRequest $tagPrintRequest): self
+    {
+        if (!$this->tagPrintRequests->contains($tagPrintRequest)) {
+            $this->tagPrintRequests[] = $tagPrintRequest;
+            $tagPrintRequest->setArticle($this);
+        }
+
+        return $this;
+    }
+
+    public function removeTagPrintRequest(TagPrintRequest $tagPrintRequest): self
+    {
+        if ($this->tagPrintRequests->contains($tagPrintRequest)) {
+            $this->tagPrintRequests->removeElement($tagPrintRequest);
+            // set the owning side to null (unless already changed)
+            if ($tagPrintRequest->getArticle() === $this) {
+                $tagPrintRequest->setArticle(null);
             }
         }
 
