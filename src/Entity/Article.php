@@ -2,6 +2,8 @@
 
 namespace App\Entity;
 
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use JMS\Serializer\Annotation as Serializer;
 
@@ -212,6 +214,20 @@ class Article
      * @Serializer\Groups({"privilegied"})
      */
     private $stocks;
+
+    /**
+     * Stock
+     * @var Stocks
+     * @ORM\OneToMany(targetEntity="App\Entity\MissingBarcode", mappedBy="article")
+     * @Serializer\MaxDepth(depth=1)
+     * @Serializer\Groups({"privilegied"})
+     */
+    private $missingBarcodes;
+
+    public function __construct()
+    {
+        $this->missingBarcodes = new ArrayCollection();
+    }
 
     /**
      * Get code.
@@ -442,5 +458,36 @@ class Article
     public function getStocks(): Stocks
     {
         return $this->stocks;
+    }
+
+    /**
+     * @return Collection|MissingBarcode[]
+     */
+    public function getMissingBarcodes(): Collection
+    {
+        return $this->missingBarcodes;
+    }
+
+    public function addMissingBarcode(MissingBarcode $missingBarcode): self
+    {
+        if (!$this->missingBarcodes->contains($missingBarcode)) {
+            $this->missingBarcodes[] = $missingBarcode;
+            $missingBarcode->setArticle($this);
+        }
+
+        return $this;
+    }
+
+    public function removeMissingBarcode(MissingBarcode $missingBarcode): self
+    {
+        if ($this->missingBarcodes->contains($missingBarcode)) {
+            $this->missingBarcodes->removeElement($missingBarcode);
+            // set the owning side to null (unless already changed)
+            if ($missingBarcode->getArticle() === $this) {
+                $missingBarcode->setArticle(null);
+            }
+        }
+
+        return $this;
     }
 }
