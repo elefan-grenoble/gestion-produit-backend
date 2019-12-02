@@ -3,6 +3,7 @@
 namespace App\Controller;
 
 use FOS\RestBundle\Controller\AbstractFOSRestController;
+use RuntimeException;
 use Symfony\Component\Routing\Annotation\Route;
 use Swagger\Annotations as SWG;
 
@@ -30,7 +31,8 @@ class UserController extends AbstractFOSRestController
             'logged' => $this->isGranted('ROLE_USER'),
             'vip_ip' => $this->isGranted('ROLE_VIP_IP'),
             'user' => null,
-            'oauth_url' => $this->generateUrl('hwi_oauth_service_redirect', ['service' => 'custom'])
+            'oauth_url' => $this->generateUrl('hwi_oauth_service_redirect', ['service' => 'custom']),
+            'disconnect_url' => $this->generateUrl('logout')
         ];
 
         if ($user) {
@@ -40,5 +42,13 @@ class UserController extends AbstractFOSRestController
         }
 
         return $this->json($response);
+    }
+
+    /**
+     * @Route("/logout", name="logout", methods={"GET"})
+     */
+    public function logout()
+    {
+        throw new RuntimeException('This should not be reached!');
     }
 }

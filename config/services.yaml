@@ -35,3 +35,8 @@ services:
         tags:
             - { name: 'monolog.logger', channel: 'security' }
 
+    security.logout.success_handler:
+        class:  App\Security\LogoutSuccessHandler
+        arguments:  ["@security.http_utils", {}]
+        tags:
+            - { name: 'monolog.logger', channel: 'security' }
