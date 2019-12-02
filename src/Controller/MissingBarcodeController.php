@@ -10,6 +10,7 @@ use FOS\RestBundle\Controller\AbstractFOSRestController;
 use FOS\RestBundle\Controller\Annotations as Rest;
 use FOS\RestBundle\View\View;
 use Nelmio\ApiDocBundle\Annotation\Model;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 use Swagger\Annotations as SWG;
 use Symfony\Component\Form\FormInterface;
 use Symfony\Component\HttpFoundation\Request;
@@ -17,6 +18,7 @@ use Symfony\Component\HttpFoundation\Response;
 
 /**
  * @Rest\Route("/missing_barcodes")
+ * @IsGranted("IS_AUTHENTICATED_FULLY")
  */
 class MissingBarcodeController extends AbstractFOSRestController
 {

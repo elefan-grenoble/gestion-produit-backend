@@ -9,12 +9,14 @@ use FOS\RestBundle\Controller\AbstractFOSRestController;
 use FOS\RestBundle\Controller\Annotations as Rest;
 use Nelmio\ApiDocBundle\Annotation\Model;
 use phpDocumentor\Reflection\Types\Integer;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 use Swagger\Annotations as SWG;
 use Symfony\Component\HttpFoundation\Response;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter;
 use Symfony\Component\HttpFoundation\Request;
 /**
  * @Rest\Route("/supplying")
+ * @IsGranted("IS_AUTHENTICATED_FULLY")
  */
 class SupplyingController extends AbstractFOSRestController
 {
