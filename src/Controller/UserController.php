@@ -23,7 +23,7 @@ class UserController extends AbstractFOSRestController
      *
      * @Route("/user/status", name="user_status", methods={"GET"})
      */
-    public function loginStatus()
+    public function loginStatus($logoutPageUrl)
     {
         $user = $this->getUser();
 
@@ -32,7 +32,8 @@ class UserController extends AbstractFOSRestController
             'vip_ip' => $this->isGranted('ROLE_VIP_IP'),
             'user' => null,
             'oauth_url' => $this->generateUrl('hwi_oauth_service_redirect', ['service' => 'custom']),
-            'disconnect_url' => $this->generateUrl('logout')
+            'disconnect_url' => $this->generateUrl('logout'),
+            'logout_page_url' => $logoutPageUrl
         ];
 
         if ($user) {
