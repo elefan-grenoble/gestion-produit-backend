@@ -4,6 +4,7 @@ namespace App\Controller;
 
 use App\Entity\TagPrintRequest;
 use App\Form\TagPrintRequestType;
+use Doctrine\ORM\EntityManagerInterface;
 use FOS\RestBundle\Context\Context;
 use FOS\RestBundle\Controller\AbstractFOSRestController;
 use FOS\RestBundle\Controller\Annotations as Rest;
@@ -36,9 +37,8 @@ class TagPrintRequestController extends AbstractFOSRestController
      *
      * @SWG\Tag(name="tag_print_request")
      */
-    public function getTagPrintRequests()
+    public function getTagPrintRequests(EntityManagerInterface $em)
     {
-        $em = $this->getDoctrine();
         $tagPrintRequests = $em->getRepository(TagPrintRequest::class)->findAll();
         return $this->view($tagPrintRequests)->setContext($this->getContext());
     }
@@ -56,7 +56,7 @@ class TagPrintRequestController extends AbstractFOSRestController
      * @param Request $request
      * @return View|FormInterface
      */
-    public function postTagPrintRequest(Request $request)
+    public function postTagPrintRequest(Request $request, EntityManagerInterface $em)
     {
         $tagPrintRequest = new TagPrintRequest();
         $form = $this->createForm(TagPrintRequestType::class, $tagPrintRequest);
@@ -64,7 +64,6 @@ class TagPrintRequestController extends AbstractFOSRestController
         $form->submit($request->request->all());
 
         if ($form->isValid()) {
-            $em = $this->getDoctrine()->getEntityManager();
             $em->persist($tagPrintRequest);
             $em->flush();
 
@@ -89,9 +88,8 @@ class TagPrintRequestController extends AbstractFOSRestController
      * @param TagPrintRequest $tagPrintRequest
      * @return \FOS\RestBundle\View\View
      */
-    public function deleteTagPrintRequest(TagPrintRequest $tagPrintRequest)
+    public function deleteTagPrintRequest(TagPrintRequest $tagPrintRequest, EntityManagerInterface $em)
     {
-        $em = $this->getDoctrine()->getEntityManager();
         $em->remove($tagPrintRequest);
         $em->flush();
 

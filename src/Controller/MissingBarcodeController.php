@@ -5,6 +5,7 @@ namespace App\Controller;
 
 use App\Entity\MissingBarcode;
 use App\Form\MissingBarcodeType;
+use Doctrine\ORM\EntityManagerInterface;
 use FOS\RestBundle\Context\Context;
 use FOS\RestBundle\Controller\AbstractFOSRestController;
 use FOS\RestBundle\Controller\Annotations as Rest;
@@ -37,9 +38,8 @@ class MissingBarcodeController extends AbstractFOSRestController
      *
      * @SWG\Tag(name="missing_barcode")
      */
-    public function getMissingBarcodes()
+    public function getMissingBarcodes(EntityManagerInterface $em)
     {
-        $em = $this->getDoctrine();
         $missingBarcodes = $em->getRepository(MissingBarcode::class)->findAll();
         return $this->view($missingBarcodes)->setContext($this->getContext());
     }
@@ -57,7 +57,7 @@ class MissingBarcodeController extends AbstractFOSRestController
      * @param Request $request
      * @return View|FormInterface
      */
-    public function postMissingBarcode(Request $request)
+    public function postMissingBarcode(Request $request, EntityManagerInterface $em)
     {
         $missingBarcode = new MissingBarcode();
         $form = $this->createForm(MissingBarcodeType::class, $missingBarcode);
@@ -65,7 +65,6 @@ class MissingBarcodeController extends AbstractFOSRestController
         $form->submit($request->request->all());
 
         if ($form->isValid()) {
-            $em = $this->getDoctrine()->getEntityManager();
             $em->persist($missingBarcode);
             $em->flush();
 
@@ -90,9 +89,8 @@ class MissingBarcodeController extends AbstractFOSRestController
      * @param MissingBarcode $missingBarcode
      * @return \FOS\RestBundle\View\View
      */
-    public function deleteMissingBarcode(MissingBarcode $missingBarcode)
+    public function deleteMissingBarcode(MissingBarcode $missingBarcode, EntityManagerInterface $em)
     {
-        $em = $this->getDoctrine()->getEntityManager();
         $em->remove($missingBarcode);
         $em->flush();
 

@@ -3,6 +3,7 @@
 namespace App\Controller;
 
 use App\Entity\Article;
+use Doctrine\ORM\EntityManagerInterface;
 use FOS\RestBundle\Context\Context;
 use FOS\RestBundle\Controller\AbstractFOSRestController;
 use FOS\RestBundle\Controller\Annotations as Rest;
@@ -29,9 +30,8 @@ class ArticleController extends AbstractFOSRestController
      *
      * @SWG\Tag(name="articles")
      */
-    public function getArticles()
+    public function getArticles(EntityManagerInterface $em)
     {
-        $em = $this->getDoctrine();
         $articles = $em->getRepository(Article::class)->findAll();
         return $this->view($articles)->setContext($this->getContext());
     }

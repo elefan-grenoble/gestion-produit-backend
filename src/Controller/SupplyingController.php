@@ -4,6 +4,7 @@ namespace App\Controller;
 
 use App\Entity\Article;
 use App\Entity\Supplying;
+use Doctrine\ORM\EntityManagerInterface;
 use FOS\RestBundle\Context\Context;
 use FOS\RestBundle\Controller\AbstractFOSRestController;
 use FOS\RestBundle\Controller\Annotations as Rest;
@@ -35,9 +36,8 @@ class SupplyingController extends AbstractFOSRestController
      *
      * @SWG\Tag(name="supplying")
      */
-    public function getSupplying()
+    public function getSupplying(EntityManagerInterface $em)
     {
-        $em = $this->getDoctrine();
         $supplyings = $em->getRepository(Supplying::class)->getOngoing();
         return $this->view($supplyings)->setContext($this->getContext());
     }
@@ -59,9 +59,8 @@ class SupplyingController extends AbstractFOSRestController
      *
      * @SWG\Tag(name="supplying")
      */
-    public function createSupplying($articleCode, $quantity)
+    public function createSupplying($articleCode, $quantity, EntityManagerInterface $em)
     {
-        $em = $this->getDoctrine()->getEntityManager();
         $article = $em->getRepository(Article::class)->findOneByCode($articleCode);
 
         $supplying = new Supplying();
@@ -96,9 +95,8 @@ class SupplyingController extends AbstractFOSRestController
      *
      * @SWG\Tag(name="supplying")
      */
-    public function updateSupplying(int $id, Supplying $updates)
+    public function updateSupplying(int $id, Supplying $updates, EntityManagerInterface $em)
     {
-        $em = $this->getDoctrine()->getEntityManager();
         $supplying = $em->getRepository(Supplying::class)->findOneById($id);
 
         $supplying->setQuantity($updates->getQuantity());

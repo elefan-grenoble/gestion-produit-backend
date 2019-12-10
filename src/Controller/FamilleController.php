@@ -4,6 +4,7 @@ namespace App\Controller;
 
 use App\Entity\Article;
 use App\Entity\Famille;
+use Doctrine\ORM\EntityManagerInterface;
 use FOS\RestBundle\Controller\AbstractFOSRestController;
 use FOS\RestBundle\Controller\Annotations as Rest;
 use Swagger\Annotations as SWG;
@@ -29,9 +30,8 @@ class FamilleController extends AbstractFOSRestController
      *
      * @SWG\Tag(name="familles")
      */
-    public function getFamilles()
+    public function getFamilles(EntityManagerInterface $em)
     {
-        $em = $this->getDoctrine();
         $articles = $em->getRepository(Famille::class)->findAll();
         return $articles;
     }

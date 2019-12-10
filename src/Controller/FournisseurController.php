@@ -4,6 +4,7 @@ namespace App\Controller;
 
 use App\Entity\Article;
 use App\Entity\Fournisseur;
+use Doctrine\ORM\EntityManagerInterface;
 use FOS\RestBundle\Controller\AbstractFOSRestController;
 use FOS\RestBundle\Controller\Annotations as Rest;
 use Nelmio\ApiDocBundle\Annotation\Model;
@@ -29,9 +30,8 @@ class FournisseurController extends AbstractFOSRestController
      *
      * @SWG\Tag(name="fournisseurs")
      */
-    public function getFournisseurs()
+    public function getFournisseurs(EntityManagerInterface $em)
     {
-        $em = $this->getDoctrine();
         $articles = $em->getRepository(Fournisseur::class)->findAll();
         return $articles;
     }
