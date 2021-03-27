@@ -38,7 +38,7 @@ class SupplyingController extends AbstractFOSRestController
      */
     public function getSupplying(EntityManagerInterface $em)
     {
-        $supplyings = $em->getRepository(Supplying::class)->getOngoing();
+        $supplyings = $em->getRepository(Supplying::class)->findAll();
         return $this->view($supplyings)->setContext($this->getContext());
     }
 
@@ -67,7 +67,6 @@ class SupplyingController extends AbstractFOSRestController
         $supplying->setArticle($article);
         $supplying->setCreationDate(new \DateTime());
         $supplying->setQuantity($quantity);
-        $supplying->setOutOfStock(false);
 
         $em->persist($supplying);
         $em->flush();
@@ -98,10 +97,7 @@ class SupplyingController extends AbstractFOSRestController
     public function updateSupplying(int $id, Supplying $updates, EntityManagerInterface $em)
     {
         $supplying = $em->getRepository(Supplying::class)->findOneById($id);
-
         $supplying->setQuantity($updates->getQuantity());
-        $supplying->setOutOfStock($updates->getOutOfStock());
-        $supplying->setSupplyDate($updates->getSupplyDate());
 
         $em->flush();
 
