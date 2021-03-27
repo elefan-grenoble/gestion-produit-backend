@@ -15,12 +15,24 @@ use Swagger\Annotations as SWG;
 use Symfony\Component\HttpFoundation\Response;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter;
 use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\Mailer\MailerInterface;
+use Symfony\Bridge\Twig\Mime\TemplatedEmail;
 /**
  * @Rest\Route("/supplying")
  * @IsGranted("IS_AUTHENTICATED_FULLY")
  */
 class SupplyingController extends AbstractFOSRestController
 {
+    /**
+     * @var array
+     */
+    private $recipients;
+
+    public function __construct(array $recipients)
+    {
+        $this->recipients = $recipients;
+    }
+
     /**
      * @Rest\Get("")
      * @Rest\View(statusCode = 200)
@@ -105,6 +117,40 @@ class SupplyingController extends AbstractFOSRestController
             null,
             Response::HTTP_NO_CONTENT
         );
+    }
+
+    /**
+     * @Rest\Delete("/{id}")
+     * @Rest\QueryParam(name="out_of_stock")
+     *
+     * @SWG\Response(
+     *     response=204,
+     *     description="Delete supplying"
+     * )
+     *
+     * @SWG\Tag(name="supplying")
+     */
+    public function deleteSupplying(int $id, $out_of_stock, EntityManagerInterface $em, MailerInterface $mailer)
+    {
+        $supplying = $em->getRepository(Supplying::class)->findOneById($id);
+        if (empty($supplying)) {
+            return new View("Supplying not found", Response::HTTP_NOT_FOUND);
+        } else {
+            if ($out_of_stock === 'true' and $supplying->getArticle()->getStocks()->getQteStocks() > 0) {
+                $email = (new TemplatedEmail())
+                    ->to(...$this->recipients)
+                    ->subject('Outch, problème de stock sur '.$supplying->getArticle()->getDesignation())
+                    ->htmlTemplate('emails/supplying.html.twig')
+                    ->context([
+                        'article' => $supplying->getArticle()
+                    ])
+                ;
+                $mailer->send($email);
+            }
+            $em->remove($supplying);
+            $em->flush();
+        }
+        return $this->view(null, Response::HTTP_NO_CONTENT);
     }
 
     private function getContext()

@@ -1,0 +1,16 @@
+<p>Bonjour, bonjour,</p>
+
+<p>Un éléfanto vient d'indiquer que le produit suivant :
+<ul>
+    <li>Désignation :  {{ article.designation }}</li>
+    <li>Fournisseur : {{ article.fournisseur.nom }}</li>
+    <li>Emplacement : {{ article.emplacement.libelle }}</li>
+    <li>Rayon : {{ article.rayon.libelle }}</li>
+</ul>
+
+n'est plus disponible à l'épicerie alors que dans les stocks, je vois que nous avons {{ article.stocks.qteStocks }} {{ article.uniteVente }}s.<br>
+Je te laisse la lourde mission de vérifier où est l'erreur :) Bon courage dans cette recherche !
+</p>
+
+<p>Très bonne journée,<br>
+Céleste, la petite fée qui veille sur la cohérence des stocks :)</p>
