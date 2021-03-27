@@ -21,6 +21,7 @@ class Famille
      * @ORM\Column(name="id", type="integer")
      * @ORM\Id
      * @ORM\GeneratedValue(strategy="AUTO")
+     * @Serializer\Exclude
      */
     private $id;
 
@@ -28,6 +29,7 @@ class Famille
      * @var int
      *
      * @ORM\Column(name="code", type="integer")
+     * @Serializer\Exclude
      */
     private $code;
 
@@ -35,6 +37,7 @@ class Famille
      * @var int
      *
      * @ORM\Column(name="code_s_famille", type="integer")
+     * @Serializer\Exclude
      */
     private $codeSFamille;
 
@@ -42,6 +45,7 @@ class Famille
      * @var int
      *
      * @ORM\Column(name="code_ss_famille", type="integer")
+     * @Serializer\Exclude
      */
     private $codeSsFamille;
 

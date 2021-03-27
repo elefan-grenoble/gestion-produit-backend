@@ -83,6 +83,7 @@ class Article
      * @var int|null
      *
      * @ORM\Column(name="code_tva", type="integer", nullable=true)
+     * @Serializer\Exclude
      */
     private $codeTva;
 
@@ -91,6 +92,7 @@ class Article
      * @var int|null
      *
      * @ORM\Column(name="qte_appro", type="integer", nullable=true)
+     * @Serializer\Exclude
      */
     private $qteAppro;
 
@@ -107,6 +109,7 @@ class Article
      * @var string|null
      *
      * @ORM\Column(name="anc_prix_vente", type="decimal", precision=10, scale=2, nullable=true)
+     * @Serializer\Exclude
      */
     private $ancPrixVente;
 
@@ -115,6 +118,7 @@ class Article
      * @var string|null
      *
      * @ORM\Column(name="prix_promo", type="decimal", precision=10, scale=2, nullable=true)
+     * @Serializer\Exclude
      */
     private $prixPromo;
 
@@ -123,6 +127,7 @@ class Article
      * @var string|null
      *
      * @ORM\Column(name="prix_achat_brut", type="decimal", precision=10, scale=2, nullable=true)
+     * @Serializer\Exclude
      */
     private $prixAchatBrut;
 
@@ -131,6 +136,7 @@ class Article
      * @var string|null
      *
      * @ORM\Column(name="anc_prix_achat_brut", type="decimal", precision=10, scale=2, nullable=true)
+     * @Serializer\Exclude
      */
     private $ancPrixAchatBrut;
 
@@ -139,6 +145,7 @@ class Article
      * @var string|null
      *
      * @ORM\Column(name="remise_achat", type="decimal", precision=10, scale=2, nullable=true)
+     * @Serializer\Exclude
      */
     private $remiseAchat;
 
@@ -147,6 +154,7 @@ class Article
      * @var string
      *
      * @ORM\Column(name="status", type="string", length=56, nullable=false)
+     * @Serializer\Exclude
      */
     private $status;
 
@@ -155,6 +163,7 @@ class Article
      * @var int|null
      *
      * @ORM\Column(name="qte_kg_litre", type="integer", nullable=true)
+     * @Serializer\Exclude
      */
     private $qteKgLitre;
 
@@ -163,6 +172,7 @@ class Article
      * @var string
      *
      * @ORM\Column(name="unite_vente", type="string", length=56, nullable=false)
+     * @Serializer\Exclude
      */
     private $uniteVente;
 
@@ -171,6 +181,7 @@ class Article
      * @var \DateTime|null
      *
      * @ORM\Column(name="date_creation", type="date", nullable=true)
+     * @Serializer\Exclude
      */
     private $dateCreation;
 
@@ -179,6 +190,7 @@ class Article
      * @var \DateTime|null
      *
      * @ORM\Column(name="date_modification", type="date", nullable=true)
+     * @Serializer\Exclude
      */
     private $dateModification;
 
@@ -187,6 +199,7 @@ class Article
      * @var string|null
      *
      * @ORM\Column(name="taux_tva", type="decimal", precision=10, scale=2, nullable=true)
+     * @Serializer\Exclude
      */
     private $tauxTva;
 
@@ -195,6 +208,7 @@ class Article
      * @var string|null
      *
      * @ORM\Column(name="prix_vente_ht", type="decimal", precision=10, scale=6, nullable=true)
+     * @Serializer\Exclude
      */
     private $prixVenteHt;
 
@@ -203,6 +217,7 @@ class Article
      * @var string|null
      *
      * @ORM\Column(name="anc_prix_vente_ht", type="decimal", precision=10, scale=6, nullable=true)
+     * @Serializer\Exclude
      */
     private $ancPrixVenteHt;
 
@@ -219,8 +234,7 @@ class Article
      * Stock
      * @var MissingBarcode
      * @ORM\OneToMany(targetEntity="App\Entity\MissingBarcode", mappedBy="article")
-     * @Serializer\MaxDepth(depth=1)
-     * @Serializer\Groups({"privilegied"})
+     * @Serializer\Exclude
      */
     private $missingBarcodes;
 
@@ -228,8 +242,7 @@ class Article
      * Stock
      * @var TagPrintRequest
      * @ORM\OneToMany(targetEntity="App\Entity\TagPrintRequest", mappedBy="article")
-     * @Serializer\MaxDepth(depth=1)
-     * @Serializer\Groups({"privilegied"})
+     * @Serializer\Exclude
      */
     private $tagPrintRequests;
 
