@@ -32,7 +32,7 @@ class ArticleController extends AbstractFOSRestController
      */
     public function getArticles(EntityManagerInterface $em)
     {
-        $articles = $em->getRepository(Article::class)->findAll();
+        $articles = $em->getRepository(Article::class)->getActive();
         return $this->view($articles)->setContext($this->getContext());
     }
 

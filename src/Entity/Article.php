@@ -11,7 +11,7 @@ use JMS\Serializer\Annotation as Serializer;
  * Article
  *
  * @ORM\Table(name="ARTICLE")
- * @ORM\Entity(readOnly=true)
+ * @ORM\Entity(repositoryClass="App\Repository\ArticleRepository", readOnly=true)
  */
 class Article
 {
