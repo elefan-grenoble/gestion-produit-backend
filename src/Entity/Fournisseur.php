@@ -21,6 +21,7 @@ class Fournisseur
      * @ORM\Column(name="code", type="integer")
      * @ORM\Id
      * @ORM\GeneratedValue(strategy="IDENTITY")
+     * @Serializer\Exclude
      */
     private $code;
 
@@ -35,6 +36,7 @@ class Fournisseur
      * @var string|null
      *
      * @ORM\Column(name="addresse1", type="string", length=128, nullable=true)
+     * @Serializer\Exclude
      */
     private $addresse1;
 
@@ -42,6 +44,7 @@ class Fournisseur
      * @var string|null
      *
      * @ORM\Column(name="addresse2", type="string", length=128, nullable=true)
+     * @Serializer\Exclude
      */
     private $addresse2;
 
@@ -49,6 +52,7 @@ class Fournisseur
      * @var string|null
      *
      * @ORM\Column(name="ville", type="string", length=128, nullable=true)
+     * @Serializer\Exclude
      */
     private $ville;
 
@@ -56,6 +60,7 @@ class Fournisseur
      * @var string|null
      *
      * @ORM\Column(name="code_postal", type="string", length=64, nullable=true)
+     * @Serializer\Exclude
      */
     private $codePostal;
 
@@ -63,6 +68,7 @@ class Fournisseur
      * @var string|null
      *
      * @ORM\Column(name="mt_franco", type="string", length=64, nullable=true)
+     * @Serializer\Exclude
      */
     private $mtFranco;
 
@@ -70,6 +76,7 @@ class Fournisseur
      * @var string|null
      *
      * @ORM\Column(name="tva_intercommunautaire", type="string", length=64, nullable=true)
+     * @Serializer\Exclude
      */
     private $tvaIntercommunautaire;
 
@@ -77,6 +84,7 @@ class Fournisseur
      * @var string|null
      *
      * @ORM\Column(name="delai", type="string", length=64, nullable=true)
+     * @Serializer\Exclude
      */
     private $delai;
 
@@ -84,6 +92,7 @@ class Fournisseur
      * @var string|null
      *
      * @ORM\Column(name="remise", type="string", length=64, nullable=true)
+     * @Serializer\Exclude
      */
     private $remise;
 
@@ -91,6 +100,7 @@ class Fournisseur
      * @var string|null
      *
      * @ORM\Column(name="nom_contact", type="string", length=64, nullable=true)
+     * @Serializer\Exclude
      */
     private $nomContact;
 
@@ -98,6 +108,7 @@ class Fournisseur
      * @var string|null
      *
      * @ORM\Column(name="telephone", type="string", length=64, nullable=true)
+     * @Serializer\Exclude
      */
     private $telephone;
 
@@ -105,6 +116,7 @@ class Fournisseur
      * @var string|null
      *
      * @ORM\Column(name="portable", type="string", length=64, nullable=true)
+     * @Serializer\Exclude
      */
     private $portable;
 
@@ -112,6 +124,7 @@ class Fournisseur
      * @var string|null
      *
      * @ORM\Column(name="fax", type="string", length=64, nullable=true)
+     * @Serializer\Exclude
      */
     private $fax;
 
@@ -119,6 +132,7 @@ class Fournisseur
      * @var string|null
      *
      * @ORM\Column(name="email", type="string", length=64, nullable=true)
+     * @Serializer\Exclude
      */
     private $email;
 
@@ -126,6 +140,7 @@ class Fournisseur
      * @var string|null
      *
      * @ORM\Column(name="site_internet", type="string", length=64, nullable=true)
+     * @Serializer\Exclude
      */
     private $siteInternet;
 
