@@ -3,7 +3,7 @@
     "license": "GPLv3",
     "type": "project",
     "description": "Backend API to view and manage the products of the cooperative grocery shop l'Elefan",
-    "version": "1.1.0",
+    "version": "1.1.1",
     "require": {
         "php": "^7.3",
         "ext-ctype": "*",
